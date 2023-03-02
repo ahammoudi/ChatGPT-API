@@ -5,3 +5,4 @@ make file executable chmod +x chatgpt.sh
 
 ./chatgpt.sh
 
+Make sure you Add Token to the script.
