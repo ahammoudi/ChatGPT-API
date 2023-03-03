@@ -17,7 +17,7 @@ echo " "
 #Chat GPT API End point URL
 API_URL="https://api.openai.com/v1/engine/davinci-codex/completions"
 #API Key
-API_KEY='APY KEY HERE'
+API_KEY='API KEY HERE'
 
 #Script Path
 ScriptPath=$(readlink -f $0)
