@@ -4,10 +4,10 @@
 # Date: March/02/2023
 # Name: Chat-GPT shell chat.
 ##############################################################################################
-# Script required jq to parse json response, script will atepmt to install it user agrre.
-# Script require Token, you can get it from https://platform.openai.com/account/api-keys 
-#
-#
+# Script required jq to parse json response, script will atepmt to install it if user agree. #
+# Script require Token, you can get it from https://platform.openai.com/account/api-keys     #
+# Set Token in line 20                                                                       #                                                                                            #
+#                                                                                            #
 ##############################################################################################
 clear
 echo " "
