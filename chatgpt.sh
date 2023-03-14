@@ -4,10 +4,10 @@
 # Date: March/02/2023
 # Name: Chat-GPT shell chat.
 ##############################################################################################
-# Script required jq to parse json response, script will atepmt to install it if user agree. #
-# Script require Token, you can get it from https://platform.openai.com/account/api-keys     #
-# Set Token in line 20                                                                       #                                                                                            #
-#                                                                                            #
+# Script required jq to parse json response, script will atepmt to install it user agrre.
+# Script require Token, you can get it from https://platform.openai.com/account/api-keys 
+#
+#
 ##############################################################################################
 clear
 echo " "
@@ -44,8 +44,7 @@ if [[ -f ~/.bashrc ]]; then
 fi
 
 #Install jq based on the os version, its should cover Ubuntu, CentOS, RedHat, Fedora, and OpenSuse/Suse
-InstallJQ () {
-package="jq"
+InstallSoftware () {
 declare -A osInfo;
 osInfo[/etc/debian_version]="apt-get install -y"
 osInfo[/etc/centos-release]="yum install -y"
@@ -60,12 +59,12 @@ do
     fi
 done
 
-echo "jq package is required to parse chat-GPT response."
-echo "Please type 'y/Y' to install the package, or 'n/N' to cancle and exit"
+echo "$package package is required for chat-GPT."
+echo "Please type 'y/Y' to install the package, or 'n/N' to cancle and exit script."
 #Confirm with user before install package.
 read -p "y/n: " REPLY
 if [[ $REPLY =~ ^[Yy]$ ]]; then
-    if [[ "$EUID" -ne 0 ]]; then
+    if [[ "$EUID" -ne 0 ]]; then #if the current user is not equal to EUID (root), then use sudo command.
         sudo ${package_manager} ${package}
     else
         ${package_manager} ${package}
@@ -78,14 +77,22 @@ fi
 
 }
 
-#Check inf jq installed 
-checkJQ () {
-    if [[ ! -f /usr/bin/jq ]]; then #if jq does not exit in the 
-    InstallJQ #call InstallJQ function.
+#Check if reuired software installed 
+checkSoftwares () {
+    #Check jq
+    if [[ ! -f /usr/bin/jq ]]; then #if jq does not exit in the
+    package="jq"
+    InstallSoftware #call InstallSoftware function.
+    fi
+
+    #Check curl 
+    if [[ ! -f /usr/bin/curl ]]; then #if curl does not exit in the
+    package="curl"
+    InstallSoftware #call InstallSoftware function.
     fi
 }
 
-checkJQ
+checkSoftwares
 
 #This function making API Calls and return the result, its alos till check if there is no input and return to prompt.
 #Its also exit if the the input equal to q, bye, exit or quit.
